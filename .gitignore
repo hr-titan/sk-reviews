@@ -1,0 +1,10 @@
+node_modules
+data/characteristics.csv
+data/convertedCharacteristics.json
+data/convertedReviews.json
+data/reviews.csv
+data/characteristic_reviews.csv
+data/reviews_photos.csv
+.env
+.DS_Store
+Notes.txt
