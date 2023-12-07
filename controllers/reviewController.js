@@ -6,7 +6,7 @@ const getReviews = (id, params) => {
   const count = params.count || 5;
   const offset = (count * page) - count;
 
-  return review.find({ product_id: id, reported: 'false' }).limit(count).skip(offset);
+  return review.find({ product_id: id, reported: false }).limit(count).skip(offset);
 };
 
 const postReview = (id, data) => {
@@ -31,4 +31,4 @@ const postReview = (id, data) => {
   return review.create(review);
 }
 
-module.exports = { getReviews };
+module.exports = { getReviews, postReview };

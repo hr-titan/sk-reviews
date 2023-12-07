@@ -1,7 +1,7 @@
 node_modules
 data/characteristics.csv
-data/convertedCharacteristics.json
-data/convertedReviews.json
+data/characteristicsParsed.json
+data/reviewsParsed.json
 data/reviews.csv
 data/characteristic_reviews.csv
 data/reviews_photos.csv
