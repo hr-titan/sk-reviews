@@ -8,7 +8,7 @@ const reviewSchema = new mongoose.Schema({
   recommend: { type: Boolean, required: true },
   response: { type: String, default: null },
   body: { type: String, required: true, minLength: 50, maxLength: 1000 },
-  date: { type: Date, default: Date.now },
+  date: { type: Number, default: () => Date.now() },
   reviewer_name: { type: String, required: true },
   helpfulness: { type: Number, default: 0 },
   photos: { type: [String], default: [] },

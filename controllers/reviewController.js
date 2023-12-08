@@ -2,19 +2,7 @@ const Reviews = require('../models/reviewModel.js');
 const Characteristics = require('../models/characteristicModel.js');
 const MetaData = require('../models/metaDataModel.js');
 const getNewIndex = require('./getNewIndex.js');
-
-const createCharacteristicReview = (id, index, characteristics) => {
-  const newReview = {
-    ...characteristics,
-    review_id: index,
-    product_id: id
-  };
-  Characteristics.create(newReview)
-    .then(() => {
-      console.log('Characteristic review created');
-      return true;
-    })
-}
+const { formatReview, formatCharacteristics } = require('../lib/convertData.js');
 
 const getReviews = (id, params) => {
   const sort = params.sort || 'relevant';
@@ -26,27 +14,17 @@ const getReviews = (id, params) => {
 };
 
 const getMetaData = (id) => {
-  return MetaData.find({ product_id: id });
+  return MetaData.findOne({ product_id: id });
 }
 
 const postReview = async (id, data) => {
   const index = await getNewIndex();
-  const { rating, summary, recommend, response, body, name, photos, characteristics } = data;
-  const review = {
-    review_id: index,
-    product_id: id,
-    reviewer_name: name,
-    rating,
-    summary,
-    recommend,
-    response,
-    body,
-    photos
-  };
-  if (characteristics) {
-    createCharacteristicReview(id, index, characteristics);
-  }
+  const review = formatReview(id, index, data);
 
+  if (data.characteristics) {
+    const characteristicReview = formatCharacteristics(id, index, data.characteristics);
+    return Promise.all([Characteristics.create(characteristicReview), Reviews.create(review)]);
+  }
   return Reviews.create(review);
 }
 

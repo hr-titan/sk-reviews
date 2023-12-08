@@ -1,24 +1,18 @@
 const reviewRouter = require('express').Router();
+const checkProductId = require('../middleware/checkProductId.js');
 const { getReviews, postReview,
   updateHelpfulness, reportReview,
   getMetaData, testEndPoint } = require('../controllers/reviewController.js');
 
 reviewRouter.route('/')
-  .get((req, res) => {
-    if (!req.query.product_id) {
-      return res.sendStatus(400);
-    };
-    console.log(req.query.product_id);
+  .get(checkProductId, (req, res) => {
     getReviews(+req.query.product_id, req.query)
       .then(result => {
         res.status(200).json(result);
       })
 
   })
-  .post((req, res) => {
-    if (!req.query.product_id) {
-      return res.sendStatus(400);
-    };
+  .post(checkProductId, (req, res) => {
     postReview(+req.query.product_id, req.body)
       .then(result => {
         res.sendStatus(201);
@@ -29,13 +23,9 @@ reviewRouter.route('/')
       })
   })
 
-reviewRouter.get('/meta', (req, res) => {
-  if (!req.query.product_id) {
-    return res.sendStatus(400);
-  }
+reviewRouter.get('/meta', checkProductId, (req, res) => {
   getMetaData(req.query.product_id)
     .then(result => {
-      console.log(result);
       res.status(200).json(result);
     })
     .catch(err => {
