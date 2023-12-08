@@ -1,4 +1,20 @@
-const review = require('../models/reviewModel.js');
+const Reviews = require('../models/reviewModel.js');
+const Characteristics = require('../models/characteristicModel.js');
+const MetaData = require('../models/metaDataModel.js');
+const getNewIndex = require('./getNewIndex.js');
+
+const createCharacteristicReview = (id, index, characteristics) => {
+  const newReview = {
+    ...characteristics,
+    review_id: index,
+    product_id: id
+  };
+  Characteristics.create(newReview)
+    .then(() => {
+      console.log('Characteristic review created');
+      return true;
+    })
+}
 
 const getReviews = (id, params) => {
   const sort = params.sort || 'relevant';
@@ -6,29 +22,44 @@ const getReviews = (id, params) => {
   const count = params.count || 5;
   const offset = (count * page) - count;
 
-  return review.find({ product_id: id, reported: false }).limit(count).skip(offset);
+  return Reviews.find({ product_id: id }).limit(count).skip(offset);
 };
 
-const postReview = (id, data) => {
-  const { rating, summary, recommend, response, body, reviewer_name, photos, characteristics } = data;
+const getMetaData = (id) => {
+  return MetaData.find({ product_id: id });
+}
+
+const postReview = async (id, data) => {
+  const index = await getNewIndex();
+  const { rating, summary, recommend, response, body, name, photos, characteristics } = data;
   const review = {
+    review_id: index,
     product_id: id,
+    reviewer_name: name,
     rating,
     summary,
     recommend,
     response,
     body,
-    reviewer_name,
     photos
   };
   if (characteristics) {
-    const characteristicsReview = {
-      ...characteristics,
-      product_id: id
-    };
-    console.log('POST characteristicsReview');
+    createCharacteristicReview(id, index, characteristics);
   }
-  return review.create(review);
+
+  return Reviews.create(review);
 }
 
-module.exports = { getReviews, postReview };
+const updateHelpfulness = (id) => {
+  return Reviews.findOneAndUpdate({ review_id: id }, { $inc: { helpfulness: 1 }});
+}
+
+const reportReview = (id) => {
+  return Reviews.findOneAndUpdate({ review_id: id }, { reported: true });
+}
+
+const testEndPoint = (name) => {
+  return Reviews.find({ reviewer_name: name }).limit(5).skip(0);
+}
+
+module.exports = { getReviews, postReview, updateHelpfulness, reportReview, getMetaData, testEndPoint };

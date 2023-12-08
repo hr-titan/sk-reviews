@@ -1,8 +1,8 @@
-const mongooe = require('mongoose');
+const mongoose = require('mongoose');
 
 const characteristicSchema = new mongoose.Schema({
   review_id: { type: Number, index: true },
-  product_id: { type: String, required: true, index: true },
+  product_id: { type: Number, required: true, index: true },
   quality: { type: Number, min: 1, max: 5 },
   length: { type: Number, min: 1, max: 5 },
   width: { type: Number, min: 1, max: 5 },
@@ -11,6 +11,6 @@ const characteristicSchema = new mongoose.Schema({
   size: { type: Number, min: 1, max: 5 },
 });
 
-const Characteristics = new mongoose.Model('Characteristics', characteristicSchema, 'characteristics-reviews');
+const Characteristics = new mongoose.model('characteristic-review', characteristicSchema, 'characteristic-reviews');
 
 module.exports = Characteristics;

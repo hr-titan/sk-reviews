@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const initiateAggregation = async () => {
+const initiateMetaAggregation = async () => {
   try {
     console.log('Start time: ', new Date().toISOString())
     await mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`);
@@ -74,12 +74,13 @@ const initiateAggregation = async () => {
 
     console.log('Meta data successfully created:', result);
     console.log('End time: ', new Date().toISOString())
-  } catch (error) {
-    console.error('Error:', error);
+  } catch (err) {
+    console.error('Error:', err);
   } finally {
     mongoose.connection.close();
   }
 };
 
-initiateAggregation();
+// initiateMetaAggregation();
 //950072
+//mongodb://localhost:27017

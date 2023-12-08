@@ -1,12 +1,11 @@
 require('dotenv').config();
+require('./db.js');
 const express = require('express');
 const morgan = require('morgan');
-const dbConnection = require('./db.js');
 const reviewRouter = require('./routes/reviewsRouter.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const db = dbConnection();
 
 app.use(express.json());
 app.use(morgan('dev'));
