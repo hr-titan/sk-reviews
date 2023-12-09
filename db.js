@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const updateMetaData = require('./data/createMetaData.js');
 
-mongoose.connect('mongodb://127.0.0.1:27017/atelier-rating-reviews')
+mongoose.connect(`mongodb://${process.env.USER}:${process.env.PASS}localhost:27017/${process.env.DB_NAME}`)
   .then(() => {
     console.log('Connection to DB successful: ', mongoose.connection.name)
     // updateMetaData(mongoose.connection);
