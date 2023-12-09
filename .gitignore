@@ -5,6 +5,7 @@ data/reviewsParsed.json
 data/reviews.csv
 data/characteristic_reviews.csv
 data/reviews_photos.csv
+data/reviews2Parsed.json
 .env
 .DS_Store
 Notes.txt

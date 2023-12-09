@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const characteristicSchema = new mongoose.Schema({
-  review_id: { type: Number, index: true },
+  review_id: { type: Number, index: true, unique: true },
   product_id: { type: Number, required: true, index: true },
   quality: { type: Number, min: 1, max: 5 },
   length: { type: Number, min: 1, max: 5 },

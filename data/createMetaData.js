@@ -1,11 +1,8 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
 
-const initiateMetaAggregation = async () => {
+const initiateMetaAggregation = async (db) => {
   try {
     console.log('Start time: ', new Date().toISOString())
-    await mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`);
-    const db = mongoose.connection;
     const reviewCollection = db.collection('reviews');
     const result = await reviewCollection.aggregate([
       {
@@ -76,11 +73,7 @@ const initiateMetaAggregation = async () => {
     console.log('End time: ', new Date().toISOString())
   } catch (err) {
     console.error('Error:', err);
-  } finally {
-    mongoose.connection.close();
-  }
+  };
 };
 
-// initiateMetaAggregation();
-//950072
-//mongodb://localhost:27017
+module.exports = initiateMetaAggregation;
