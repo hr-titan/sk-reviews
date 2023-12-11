@@ -4,10 +4,14 @@ const { getReviews, postReview,
   updateHelpfulness, reportReview,
   getMetaData, testEndPoint } = require('../controllers/reviewController.js');
 
+const { cache } = require('../middleware/cache.js');
+
 reviewRouter.route('/')
   .get(checkProductId, (req, res) => {
     getReviews(+req.query.product_id, req.query)
       .then(result => {
+        console.log(req.url);
+        cache.put(req.url, result, 5000);
         res.status(200).json(result);
       })
 
@@ -26,6 +30,7 @@ reviewRouter.route('/')
 reviewRouter.get('/meta', checkProductId, (req, res) => {
   getMetaData(req.query.product_id)
     .then(result => {
+      console.log(req.url);
       res.status(200).json(result);
     })
     .catch(err => {
