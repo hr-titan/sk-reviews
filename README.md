@@ -69,7 +69,7 @@ Achieved an average response time of 200 ms with near 0% error rate when ramping
 
 <p align="right"><a href="#readme-top">back to top</a></p>
 
-# 📈 Performnace Results
+# 📈 Performance Results
 <a id='performance-results'></a>
 
 ### Target
