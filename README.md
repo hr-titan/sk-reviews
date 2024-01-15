@@ -1,8 +1,7 @@
 <a id='readme-top'></a>
 # Titan - Atelier API
 
-<img src='https://github.com/hr-titan/sk-reviews/blob/main/image/k6.png' width='40%' />
-<img src='https://github.com/hr-titan/sk-reviews/blob/main/image/nginx.png' width='40%' />
+<img src='https://github.com/hr-titan/sk-reviews/blob/main/image/k6.png' />
 
 <details>
   <summary>Table of Contents</summary>
