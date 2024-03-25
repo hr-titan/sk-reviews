@@ -21,7 +21,7 @@
       <a href='#performance-results'>Performance Results</a>
     </li>
     <li>
-      <a href='#rtl'>RTL Learnings</a>
+      <a href='#etl'>ETL Learnings</a>
     </li>
      <li>
       <a href='#takeaways'>Takeaways</a>
@@ -84,9 +84,9 @@ Achieved an average response time of 200 ms with near 0% error rate when ramping
 
 <p align="right"><a href="#readme-top">back to top</a></p>
 
-# ⚙️ RTL Learnings/Findings
-<a id='rtl'></a>
-One of the biggest struggles for this project was the RTL process. I was given around 5gbs of ratings & review data in the form of CSV files. This introduced a couple of challenges. For one, my database was mongodb, CSV data is not native to mongodb nor does it transpile very well using mongo's pipeline. This in combination with my idea of redesigning the data schema, proved to be difficult. My new schema design pre-calculated meta data per product and stored that data in a new collection. To do this, I essentially had to convert millions of lines of CSV data into json files, which was done using Node's read/write streams. Then import the json files into mongodb and run an aggregation script to calculate the data. After a lot of waiting/debugging/optimizing/crying i was able to get the script to run at an average of 3 minutes. This significantly cut query times - from 2s averages to 50ms in a local environment.
+# ⚙️ ETL Learnings/Findings
+<a id='etl'></a>
+One of the biggest struggles for this project was the ETL process. I was given around 5gbs of ratings & review data in the form of CSV files. This introduced a couple of challenges. For one, my database was mongodb, CSV data is not native to mongodb nor does it transpile very well using mongo's pipeline. This in combination with my idea of redesigning the data schema, proved to be difficult. My new schema design pre-calculated meta data per product and stored that data in a new collection. To do this, I essentially had to convert millions of lines of CSV data into json files, which was done using Node's read/write streams. Then import the json files into mongodb and run an aggregation script to calculate the data. After a lot of waiting/debugging/optimizing/crying i was able to get the script to run at an average of 3 minutes. This significantly cut query times - from 2s averages to 50ms in a local environment.
 
 
 # Takeaways
